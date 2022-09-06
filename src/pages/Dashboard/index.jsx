@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 
-const Dashboard = ({ authenticated }) => {
+const Dashboard = ({ authenticated, setAuthenticated }) => {
   const [tasks, setTasks] = useState([]);
 
   const [token] = useState(
@@ -40,6 +40,11 @@ const Dashboard = ({ authenticated }) => {
   useEffect(() => {
     loadTasks();
   }, []);
+
+  const leave = () => {
+    localStorage.clear();
+    setAuthenticated(false);
+  };
 
   const onSubmit = ({ task }) => {
     if (!task) {
@@ -83,7 +88,13 @@ const Dashboard = ({ authenticated }) => {
   return (
     <Container>
       <InputContainer onSubmit={handleSubmit(onSubmit)}>
-        <time>23 de fevereiro de 2022</time>
+        <time>
+          {new Date().toLocaleDateString("pt-BR", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+          })}
+        </time>
         <section>
           <Input
             icon={FiEdit2}
@@ -92,6 +103,9 @@ const Dashboard = ({ authenticated }) => {
             name="task"
           />
           <Button type="submit">Adicionar</Button>
+          <Button type="button" className="leave-button" onClick={leave}>
+            Sair
+          </Button>
         </section>
       </InputContainer>
       <TaskContainer>
