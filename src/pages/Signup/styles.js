@@ -12,6 +12,7 @@ export const Background = styled.div`
     flex: 1;
     background: url(${cadastro}) no-repeat, center, var(--black);
     background-size: contain;
+    max-width: 50%;
   }
 `;
 
@@ -21,7 +22,10 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 700px;
+
+  @media (min-width: 1100px) {
+    width: 50%;
+  }
 `;
 
 const appearFromRight = keyframes`
@@ -45,20 +49,20 @@ export const AnimationContainer = styled.div`
   animation: ${appearFromRight} 1s;
 
   form {
-    margin: 80px 0;
     width: 340px;
     text-align: center;
 
     h1 {
-      margin-bottom: 32;
+      margin-bottom: 0;
     }
 
     div {
-      margin-top: 16px;
+      margin-top: 10px;
     }
 
     p {
       margin-top: 8px;
+      margin-bottom: 0;
 
       a {
         font-weight: bold;

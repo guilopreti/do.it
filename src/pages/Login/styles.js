@@ -12,6 +12,7 @@ export const Background = styled.div`
     flex: 1;
     background: url(${login}) no-repeat, center, var(--black);
     background-size: contain;
+    max-width: 50%;
   }
 `;
 
@@ -21,7 +22,10 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 700px;
+
+  @media (min-width: 1100px) {
+    width: 50%;
+  }
 `;
 
 const appearFromLeft = keyframes`
