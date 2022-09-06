@@ -25,6 +25,3 @@ function App() {
 }
 
 export default App;
-
-// font-family: 'PT Serif', serif;
-// font-family: 'Roboto Mono', monospace;
