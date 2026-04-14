@@ -2,6 +2,8 @@
 
 O **DO.IT** é uma aplicação front-end voltada para o gerenciamento de rotina e anotação de tarefas diárias. O projeto conta com páginas para cadastro de conta, login seguro e um dashboard pessoal de atividades.
 
+Acesse em: https://do-it-puce.vercel.app
+
 ## 🚀 Funcionalidades
 
 - **Cadastro e Login:** Crie sua conta com e-mail/senha.
