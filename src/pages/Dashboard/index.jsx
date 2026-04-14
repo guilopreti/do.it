@@ -12,9 +12,19 @@ import { toast } from "react-toastify";
 const Dashboard = ({ authenticated, setAuthenticated }) => {
   const [tasks, setTasks] = useState([]);
 
-  const [token] = useState(
-    JSON.parse(localStorage.getItem("@Doit:token")) || ""
-  );
+  const [token] = useState(() => {
+    const value = localStorage.getItem("@Doit:token");
+
+    if (!value) {
+      return "";
+    }
+
+    try {
+      return JSON.parse(value) || "";
+    } catch (_) {
+      return value;
+    }
+  });
   const { register, handleSubmit } = useForm();
 
   const loadTasks = () => {
@@ -34,15 +44,19 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
         }));
         setTasks(apiTasks);
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        toast.error(err.message || "Erro ao carregar as tarefas"),
+      );
   };
 
   useEffect(() => {
     loadTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const leave = () => {
-    localStorage.clear();
+    localStorage.removeItem("@Doit:token");
+    localStorage.removeItem("@Doit:user");
     setAuthenticated(false);
   };
 
@@ -61,9 +75,10 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       )
-      .then((_) => loadTasks());
+      .then((_) => loadTasks())
+      .catch((err) => toast.error(err.message || "Erro ao adicionar tarefa"));
   };
 
   const handleCompleted = (id) => {
@@ -76,8 +91,9 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       )
+      .catch((err) => toast.error(err.message || "Erro ao atualizar a tarefa"))
       .then((_) => setTasks(newTasks));
   };
 

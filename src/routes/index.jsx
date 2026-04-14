@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
@@ -7,14 +6,26 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 
 const Routes = () => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(() => {
+    const readStorage = (key) => {
+      const value = localStorage.getItem(key);
 
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("@Doit:token"));
-    if (token) {
-      setAuthenticated(true);
-    }
-  }, [authenticated]);
+      if (!value) {
+        return null;
+      }
+
+      try {
+        return JSON.parse(value);
+      } catch (_) {
+        return null;
+      }
+    };
+
+    const token = readStorage("@Doit:token");
+    const user = readStorage("@Doit:user");
+
+    return Boolean(token && user);
+  });
 
   return (
     <Switch>

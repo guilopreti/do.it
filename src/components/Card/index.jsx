@@ -5,9 +5,9 @@ import Button from "../Button";
 const Card = ({ title, date, onClick }) => {
   return (
     <Container>
-      <spna>
+      <span>
         <FiClipboard /> {title}
-      </spna>
+      </span>
       <hr />
       <time>
         <FiCalendar /> {date}

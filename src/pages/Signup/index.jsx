@@ -42,7 +42,9 @@ const Signup = ({ authenticated }) => {
         toast.success("Conta criada com sucesso!");
         return history.push("/login");
       })
-      .catch((_) => toast.error("Erro ao criar a conta, tente outro email"));
+      .catch((err) =>
+        toast.error(err.message || "Erro ao criar a conta, tente outro email"),
+      );
   };
 
   if (authenticated) {

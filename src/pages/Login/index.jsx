@@ -40,7 +40,7 @@ const Login = ({ authenticated, setAuthenticated }) => {
         setAuthenticated(true);
         return history.push("/dashboard");
       })
-      .catch((_) => toast.error("Email ou senha inválidos"));
+      .catch((err) => toast.error(err.message || "Email ou senha inválidos"));
   };
 
   if (authenticated) {
